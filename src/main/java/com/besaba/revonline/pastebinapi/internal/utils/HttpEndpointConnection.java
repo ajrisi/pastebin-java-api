@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 public class HttpEndpointConnection<T> {
   private static final String PASTEBIN_API_ENDPOINT    = "https://pastebin.com/api/api_post.php";
-  private static final String PASTEBIN_RAW_ENDPOINT    = "https://pastebin.com/api/api_raw.php";
+  private static final String PASTEBIN_RAW_ENDPOINT    = "https://pastebin.com/raw/";
   private static final String PASTEBIN_LOGIN_ENDPOINT  = "https://pastebin.com/api/api_login.php";
 
   private final HttpParametersUtils parameters = new HttpParametersUtils();
@@ -31,8 +31,9 @@ public class HttpEndpointConnection<T> {
     return new HttpEndpointConnection<>(PASTEBIN_API_ENDPOINT);
   }
 
-  public static <T> HttpEndpointConnection<T> connectToRawEndpoint() {
-    return new HttpEndpointConnection<>(PASTEBIN_RAW_ENDPOINT);
+  public static <T> HttpEndpointConnection<T> connectToRawEndpoint(String key) {
+      System.err.println("getting " + PASTEBIN_RAW_ENDPOINT + key);
+      return new HttpEndpointConnection<>(PASTEBIN_RAW_ENDPOINT + key);
   }
 
   public static <T> HttpEndpointConnection<T> connectToLoginEndpoint() {

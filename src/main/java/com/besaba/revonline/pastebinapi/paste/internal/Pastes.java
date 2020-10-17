@@ -16,8 +16,7 @@ import java.util.List;
 
 public class Pastes {
   public static Response<String> download(@NotNull final String key) {
-    final HttpEndpointConnection<String> endpointConnection = HttpEndpointConnection.connectToRawEndpoint();
-    endpointConnection.addParameter("i", key);
+    final HttpEndpointConnection<String> endpointConnection = HttpEndpointConnection.connectToRawEndpoint(key);
     return endpointConnection.executeAsGet();
   }
 
