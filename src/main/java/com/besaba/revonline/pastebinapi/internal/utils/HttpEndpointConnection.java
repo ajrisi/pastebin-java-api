@@ -105,15 +105,15 @@ public class HttpEndpointConnection<T> {
   }
 
   private String buildResponse(@NotNull final InputStream source) throws IOException {
-    final BufferedReader inputReader = new BufferedReader(new InputStreamReader(source));
-    final StringBuilder responseBuilder = new StringBuilder();
-
-    for(String line; (line = inputReader.readLine()) != null;) {
-      responseBuilder.append(line);
-      responseBuilder.append('\n');
-    }
-
-    return responseBuilder.toString();
+      final int bufferSize = 1024;
+      final char[] buffer = new char[bufferSize];
+      final StringBuilder out = new StringBuilder();
+      InputStreamReader in = new InputStreamReader(source, StandardCharsets.UTF_8);
+      int charsRead;
+      while((charsRead = in.read(buffer, 0, buffer.length)) > 0) {
+	  out.append(buffer, 0, charsRead);
+      }
+      return out.toString();
   }
 
   private void sendParameters(final OutputStream destination, final HttpParametersUtils parametersUtils) throws IOException {
