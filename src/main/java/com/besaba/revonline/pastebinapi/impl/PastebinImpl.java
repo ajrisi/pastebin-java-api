@@ -39,11 +39,19 @@ public class PastebinImpl implements Pastebin {
     endpointConnection.addParameter("api_option", "paste");
     endpointConnection.addParameter("api_dev_key", devKey);
     endpointConnection.addParameter("api_paste_code", paste.getRaw().get());
-    endpointConnection.addParameter("api_paste_name", paste.getTitle());
-    endpointConnection.addParameter("api_paste_format", paste.getMachineFriendlyLanguage());
-    endpointConnection.addParameter("api_paste_private", String.valueOf(paste.getVisiblity().getValue()));
-    endpointConnection.addParameter("api_paste_expire_date", paste.getExpire().getValue());
-
+    if (paste.getTitle() != null) {
+	endpointConnection.addParameter("api_paste_name", paste.getTitle());
+    }
+    if (paste.getMachineFriendlyLanguage() != null) {
+	endpointConnection.addParameter("api_paste_format", paste.getMachineFriendlyLanguage());
+    }
+    if (paste.getVisiblity() != null) {
+	endpointConnection.addParameter("api_paste_private", String.valueOf(paste.getVisiblity().getValue()));
+    }
+    if (paste.getExpire() != null) {
+	endpointConnection.addParameter("api_paste_expire_date", paste.getExpire().getValue());
+    }
+	
     if (userKey != null) {
       endpointConnection.addParameter("api_user_key", userKey);
     }
